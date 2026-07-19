@@ -3,10 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://blbhf5by46yf" path="res://spritelib_gpl/spritelib_gpl/platform/blocks1.png" id="1_iafiv"]
 [ext_resource type="Texture2D" uid="uid://dwqr1072k6bcv" path="res://sprites/back.jpg" id="1_kdijb"]
 [ext_resource type="Texture2D" uid="uid://e0nyidm7ivj1" path="res://spritelib_gpl/spritelib_gpl/platform/blocks2.png" id="2_kdijb"]
-[ext_resource type="Texture2D" uid="uid://bxop5ce1bp1jj" path="res://sprites/mstoji.png" id="3_3imfn"]
-[ext_resource type="Texture2D" uid="uid://ccowq3oexjlvg" path="res://sprites/mpravy.png" id="4_iafiv"]
-[ext_resource type="Script" uid="uid://eiayjpkf24bc" path="res://scripts/character_body_2d.gd" id="4_qrmce"]
-[ext_resource type="Texture2D" uid="uid://x68om5jgjovn" path="res://sprites/mskace.png" id="6_8q3i6"]
+[ext_resource type="PackedScene" path="res://actors/runner/runner.tscn" id="3_runner"]
 [ext_resource type="PackedScene" uid="uid://bxibyor1184hk" path="res://objects/mince.tscn" id="8_qlag8"]
 [ext_resource type="PackedScene" uid="uid://c7iqjilapgl7v" path="res://objects/potvora.tscn" id="9_5itje"]
 [ext_resource type="Script" uid="uid://cn0pllos20ldc" path="res://scripts/label.gd" id="10_sb6k4"]
@@ -633,72 +630,6 @@ physics_layer_0/collision_layer = 1
 sources/2 = SubResource("TileSetAtlasSource_dvup1")
 sources/3 = SubResource("TileSetAtlasSource_3imfn")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_iafiv"]
-atlas = ExtResource("3_3imfn")
-region = Rect2(0, 0, 34, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kdijb"]
-atlas = ExtResource("3_3imfn")
-region = Rect2(34, 0, 34, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qrmce"]
-atlas = ExtResource("4_iafiv")
-region = Rect2(0, 0, 34, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8q3i6"]
-atlas = ExtResource("4_iafiv")
-region = Rect2(34, 0, 34, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qlag8"]
-atlas = ExtResource("4_iafiv")
-region = Rect2(68, 0, 34, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5itje"]
-atlas = ExtResource("4_iafiv")
-region = Rect2(102, 0, 34, 40)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_qrmce"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iafiv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kdijb")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("6_8q3i6")
-}],
-"loop": true,
-"name": &"jump",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qrmce")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8q3i6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qlag8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5itje")
-}],
-"loop": true,
-"name": &"run",
-"speed": 8.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qrmce"]
-size = Vector2(23.831284, 36.241592)
-
 [node name="Level_01" type="Node2D" unique_id=898294135]
 
 [node name="TileMapLayer_background" type="TileMapLayer" parent="." unique_id=1733663031]
@@ -711,18 +642,8 @@ collision_enabled = false
 tile_map_data = PackedByteArray("AAAAABUAAgAEAAkAAAABABUAAgAFAAkAAAACABUAAgAGAAkAAAADABUAAgAHAAkAAAAEABUAAgAIAAkAAAAFABUAAgAJAAkAAAAGABUAAgAKAAkAAAAHABUAAgAFAAkAAAAIABUAAgAGAAkAAAAJABUAAgAHAAkAAAAKABUAAgAIAAkAAAALABUAAgAJAAkAAAAMABUAAgAKAAkAAAANABUAAgAFAAkAAAAOABUAAgAGAAkAAAAPABUAAgAHAAkAAAAQABUAAgAIAAkAAAARABUAAgAJAAkAAAASABUAAgAKAAkAAAATABUAAgAFAAkAAAAUABUAAgAGAAkAAAAVABUAAgAHAAkAAAAWABUAAgAIAAkAAAAXABUAAgAJAAkAAAAYABUAAgAKAAkAAAAZABUAAgAFAAkAAAAaABUAAgAGAAkAAAAbABUAAgAHAAkAAAAcABUAAgAIAAkAAAAdABUAAgAJAAkAAAAeABUAAgAKAAkAAAAfABUAAgAFAAkAAAAgABUAAgAGAAkAAAAhABUAAgAHAAkAAAAiABUAAgAIAAkAAAAjABUAAgAJAAkAAAAkABUAAgAKAAkAAAAnABUAAgALAAkAAAAlABUAAgAJAAkAAAAmABUAAgAKAAkAAAAnABYAAgAGAAgAAAAjABYAAgACAAgAAAAkABYAAgADAAgAAAAlABYAAgAEAAgAAAAmABYAAgAFAAgAAAAfABYAAgACAAgAAAAgABYAAgADAAgAAAAhABYAAgAEAAgAAAAiABYAAgAFAAgAAAAbABYAAgACAAgAAAAcABYAAgADAAgAAAAdABYAAgAEAAgAAAAeABYAAgAFAAgAAAAXABYAAgACAAgAAAAYABYAAgADAAgAAAAZABYAAgAEAAgAAAAaABYAAgAFAAgAAAATABYAAgACAAgAAAAUABYAAgADAAgAAAAVABYAAgAEAAgAAAAWABYAAgAFAAgAAAAPABYAAgACAAgAAAAQABYAAgADAAgAAAARABYAAgAEAAgAAAASABYAAgAFAAgAAAALABYAAgACAAgAAAAMABYAAgADAAgAAAANABYAAgAEAAgAAAAOABYAAgAFAAgAAAAHABYAAgACAAgAAAAIABYAAgADAAgAAAAJABYAAgAEAAgAAAAKABYAAgAFAAgAAAADABYAAgAEAAgAAAAEABYAAgAFAAgAAAAFABYAAgAEAAgAAAAGABYAAgAFAAgAAAABABYAAgACAAgAAAACABYAAgADAAgAAAAAABYAAgAGAAgAABAAABQAAgAAAAQAAAAAABMAAgAAAAQAAAAAABIAAgAAAAQAAAAAABEAAgAAAAQAAAAAABAAAgAAAAQAAAAAAA8AAgAAAAQAAAAAAA4AAgAAAAQAAAAAAAsAAgAAAAQAAAAAAA0AAgAAAAQAAAAAAAwAAgAAAAQAAAAAAAAAAgAAAAIAAAAAAAEAAgAAAAQAAAAAAAIAAgAAAAQAAAAAAAMAAgAAAAQAAAAAAAQAAgAAAAQAAAAAAAUAAgAAAAQAAAAAAAYAAgAAAAQAAAAAAAcAAgAAAAQAAAAAAAgAAgAAAAQAAAAAAAkAAgAAAAQAAAAAAAoAAgAAAAQAAAAnABQAAgABAAQAAAAnABMAAgABAAQAAAAnABIAAgABAAQAAAAnABEAAgABAAQAAAAnABAAAgABAAQAAAAnAA8AAgABAAQAAAAnAA4AAgABAAQAAAAnAA0AAgABAAQAAAAnAAwAAgABAAQAAAAnAAsAAgABAAQAAAAnAAoAAgABAAQAAAAnAAkAAgABAAQAAAAnAAgAAgABAAQAAAAnAAcAAgABAAQAAAAnAAYAAgABAAQAAAAnAAUAAgABAAQAAAAnAAQAAgABAAQAAAAnAAMAAgABAAQAAAAnAAIAAgABAAQAAAAnAAEAAgABAAQAAAAnAAAAAgABAAIAAAABAAAAAgAEAAQAAAACAAAAAgAEAAQAAAADAAAAAgAEAAQAAAAEAAAAAgAEAAQAAAAFAAAAAgAEAAQAAAAGAAAAAgAEAAQAAAAHAAAAAgAEAAQAAAAIAAAAAgAEAAQAAAAJAAAAAgAEAAQAAAAKAAAAAgAEAAQAAAALAAAAAgAEAAQAAAAMAAAAAgAEAAQAAAANAAAAAgAEAAQAAAAOAAAAAgAEAAQAAAAPAAAAAgAEAAQAAAAQAAAAAgAEAAQAAAARAAAAAgAEAAQAAAASAAAAAgAEAAQAAAATAAAAAgAEAAQAAAAUAAAAAgAEAAQAAAAVAAAAAgAEAAQAAAAWAAAAAgAEAAQAAAAXAAAAAgAEAAQAAAAYAAAAAgAEAAQAAAAZAAAAAgAEAAQAAAAaAAAAAgAEAAQAAAAbAAAAAgAEAAQAAAAcAAAAAgAEAAQAAAAdAAAAAgAEAAQAAAAeAAAAAgAEAAQAAAAfAAAAAgAEAAQAAAAgAAAAAgAEAAQAAAAhAAAAAgAEAAQAAAAiAAAAAgAEAAQAAAAjAAAAAgAEAAQAAAAkAAAAAgAEAAQAAAAlAAAAAgAEAAQAAAAmAAAAAgAEAAQAAAAEAA4AAgAAAAQAAAAIABAAAgAFAAUAAAAEAA8AAgAEAAQAAAAOABIAAgAAAAcAAAAPABIAAgABAAcAAAAQABIAAgABAAcAAAARABIAAgABAAcAAAASABIAAgABAAcAAAATABIAAgABAAcAAAAUABIAAgABAAcAAAAVABIAAgABAAcAAAAWABIAAgABAAcAAAAXABIAAgABAAcAAAAYABIAAgABAAcAAAAZABIAAgABAAcAAAAaABIAAgAGAAcAAAA=")
 tile_set = SubResource("TileSet_3imfn")
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=1388278704 groups=["player"]]
+[node name="Runner" parent="." unique_id=1388278704 instance=ExtResource("3_runner")]
 position = Vector2(256.48697, 417.7721)
-collision_layer = 3
-script = ExtResource("4_qrmce")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=1914925776]
-sprite_frames = SubResource("SpriteFrames_qrmce")
-animation = &"idle"
-autoplay = "idle"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=215719353]
-shape = SubResource("RectangleShape2D_qrmce")
 
 [node name="Mince" parent="." unique_id=38053807 instance=ExtResource("8_qlag8")]
 position = Vector2(569.97516, 629.1268)
@@ -746,4 +667,4 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "00000"
 script = ExtResource("10_sb6k4")
 
-[connection signal="update_score" from="Player" to="CanvasLayer/Label" method="_on_player_update_score"]
+[connection signal="health_changed" from="Runner" to="CanvasLayer/Label" method="_on_runner_health_changed"]

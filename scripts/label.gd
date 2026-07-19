@@ -1,5 +1,5 @@
 extends Label
 
 
-func _on_player_update_score(new_score: Variant) -> void:
-	text = String.num_int64(new_score)
+func _on_runner_health_changed(current_health: int) -> void:
+	text = str(current_health)
