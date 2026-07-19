@@ -1,8 +1,12 @@
 extends CharacterBody2D
 
+class_name Player
+
 var speed = 250
 var gravity = 12
 var jump = 250
+var health: int = 3
+var can_take_damage: bool = true
 
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_axis("left","right")
@@ -50,3 +54,28 @@ func _physics_process(delta: float) -> void:
 		$AnimatedSprite2D.play("jump")
 	
 	move_and_slide()
+	
+func take_damage(amount: int, enemy_position: Vector2) -> void:
+
+	if not can_take_damage:
+		return
+	can_take_damage = false
+	health -= amount
+	print("Životy: ", health)
+	var knockback_direction: float = signf(
+		global_position.x - enemy_position.x
+	)
+	if knockback_direction == 0.0:
+		knockback_direction = 1.0
+	velocity.x = 250.0 * knockback_direction
+	velocity.y = -200.0
+	if health <= 0:
+		die()
+		return
+	await get_tree().create_timer(1.0).timeout
+	can_take_damage = true
+
+func die() -> void:
+
+	print("Hráč zemřel")
+	queue_free()

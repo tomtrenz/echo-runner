@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://bxibyor1184hk"]
+
+[ext_resource type="Script" uid="uid://cacy2lsy0fgc4" path="res://scripts/mince.gd" id="1_2qrym"]
+[ext_resource type="Texture2D" uid="uid://cl72b5sh2hejf" path="res://sprites/mince.png" id="1_iikpr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2qrym"]
+radius = 15.951354
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iikpr"]
+atlas = ExtResource("1_iikpr")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qrym"]
+atlas = ExtResource("1_iikpr")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cpk7s"]
+atlas = ExtResource("1_iikpr")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pi187"]
+atlas = ExtResource("1_iikpr")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_blw08"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iikpr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qrym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cpk7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pi187")
+}],
+"loop": true,
+"name": &"mince",
+"speed": 5.0
+}]
+
+[node name="Mince" type="Area2D" unique_id=38053807]
+script = ExtResource("1_2qrym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=968066432]
+position = Vector2(0.09892273, -0.19784546)
+shape = SubResource("CircleShape2D_2qrym")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1883626390]
+sprite_frames = SubResource("SpriteFrames_blw08")
+animation = &"mince"
+autoplay = "mince"
+frame_progress = 0.3775847
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

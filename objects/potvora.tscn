@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://c7iqjilapgl7v"]
+
+[ext_resource type="Script" uid="uid://2d6x3nc2i80i" path="res://scripts/potvora.gd" id="1_vnkor"]
+[ext_resource type="Texture2D" uid="uid://cba0d5h26lbv8" path="res://sprites/potvora_chodi_walk_spritesheet.png" id="1_w3rcd"]
+[ext_resource type="Texture2D" uid="uid://b0gcpbclem44j" path="res://sprites/potvora_bite.png" id="3_vnkor"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w3rcd"]
+size = Vector2(26.356033, 21.781845)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61oux"]
+atlas = ExtResource("1_w3rcd")
+region = Rect2(0, 0, 54, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ildy6"]
+atlas = ExtResource("1_w3rcd")
+region = Rect2(54, 0, 54, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcty3"]
+atlas = ExtResource("1_w3rcd")
+region = Rect2(108, 0, 54, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnol4"]
+atlas = ExtResource("1_w3rcd")
+region = Rect2(162, 0, 54, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phuu3"]
+atlas = ExtResource("3_vnkor")
+region = Rect2(0, 0, 54, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ke1b"]
+atlas = ExtResource("3_vnkor")
+region = Rect2(54, 0, 54, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6fuy"]
+atlas = ExtResource("3_vnkor")
+region = Rect2(108, 0, 54, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_61oux"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61oux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ildy6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcty3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnol4")
+}],
+"loop": true,
+"name": &"pohyb",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phuu3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ke1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6fuy")
+}],
+"loop": false,
+"name": &"utok",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vnkor"]
+size = Vector2(69.79881, 19.822865)
+
+[node name="Potvora" type="CharacterBody2D" unique_id=966177907]
+script = ExtResource("1_vnkor")
+
+[node name="BodyCollision" type="CollisionShape2D" parent="." unique_id=1179828640]
+position = Vector2(-0.03526306, 0.88513947)
+shape = SubResource("RectangleShape2D_w3rcd")
+
+[node name="Directional" type="Node2D" parent="." unique_id=857307897]
+
+[node name="FloorCheck" type="RayCast2D" parent="Directional" unique_id=390404851]
+position = Vector2(25, 0)
+target_position = Vector2(0, 25)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Directional" unique_id=2030221822]
+position = Vector2(24.47382, -9.55426)
+sprite_frames = SubResource("SpriteFrames_61oux")
+animation = &"utok"
+autoplay = "pohyb"
+offset = Vector2(-14.5886, 9.572487)
+flip_h = true
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=1191027574]
+collision_layer = 0
+collision_mask = 2
+
+[node name="DamageCollision" type="CollisionShape2D" parent="DamageArea" unique_id=151113511]
+position = Vector2(-0.03526306, 2.1568851)
+shape = SubResource("RectangleShape2D_vnkor")
+
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]

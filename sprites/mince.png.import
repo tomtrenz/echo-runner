@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dk17ycts1a2u"
-path="res://.godot/imported/mince.bmp-cefcaa8a05c3f082a3a70f4b7300f34c.ctex"
+uid="uid://cl72b5sh2hejf"
+path="res://.godot/imported/mince.png-b78662d2e373dfed1c806f969d9ffd03.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/mince.bmp"
-dest_files=["res://.godot/imported/mince.bmp-cefcaa8a05c3f082a3a70f4b7300f34c.ctex"]
+source_file="res://sprites/mince.png"
+dest_files=["res://.godot/imported/mince.png-b78662d2e373dfed1c806f969d9ffd03.ctex"]
 
 [params]
 

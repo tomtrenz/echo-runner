@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dk17ycts1a2u"
-path="res://.godot/imported/mince.bmp-cefcaa8a05c3f082a3a70f4b7300f34c.ctex"
+uid="uid://b0gcpbclem44j"
+path="res://.godot/imported/potvora_bite.png-e5b7c5c1d35a6f70e4e28c25eb7f6784.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/mince.bmp"
-dest_files=["res://.godot/imported/mince.bmp-cefcaa8a05c3f082a3a70f4b7300f34c.ctex"]
+source_file="res://sprites/potvora_bite.png"
+dest_files=["res://.godot/imported/potvora_bite.png-e5b7c5c1d35a6f70e4e28c25eb7f6784.ctex"]
 
 [params]
 

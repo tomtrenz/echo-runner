@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dk17ycts1a2u"
-path="res://.godot/imported/mince.bmp-cefcaa8a05c3f082a3a70f4b7300f34c.ctex"
+uid="uid://cba0d5h26lbv8"
+path="res://.godot/imported/potvora_chodi_walk_spritesheet.png-9f7454f59a1e7af3126d4fe3175d15f0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/mince.bmp"
-dest_files=["res://.godot/imported/mince.bmp-cefcaa8a05c3f082a3a70f4b7300f34c.ctex"]
+source_file="res://sprites/potvora_chodi_walk_spritesheet.png"
+dest_files=["res://.godot/imported/potvora_chodi_walk_spritesheet.png-9f7454f59a1e7af3126d4fe3175d15f0.ctex"]
 
 [params]
 
