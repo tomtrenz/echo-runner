@@ -13,6 +13,7 @@
 export.cfg
 export_credentials.cfg
 *.tmp
+~$*.docx
 
 # Imported translations (automatically generated from CSV files)
 *.translation

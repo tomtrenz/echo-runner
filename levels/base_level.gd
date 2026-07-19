@@ -20,7 +20,7 @@ var loop_duration_seconds: float = 10.0
 
 
 func _ready() -> void:
-	$TileMapBackground/Background.color = background_color
+	$BackgroundColor.color = background_color
 	goal.reached.connect(_on_goal_reached)
 
 
@@ -34,4 +34,3 @@ func get_echo_spawn_transform() -> Transform2D:
 
 func _on_goal_reached() -> void:
 	completed.emit()
-
