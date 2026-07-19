@@ -26,6 +26,9 @@ Hlavní scéna projektu je `game/game.tscn`.
 - Při přechodu do dalšího levelu se staré nahrávky smažou.
 - Echo používá stejnou scénu runnera a stejné fyzikální reakce jako živý hráč.
 - Echo může reagovat na nepřátele a aktivovat tlačítka, ale nemění hráčovo skóre ani HUD zdraví.
+- Sebraný collectible patří nahrávce runnera, který ho získal. Dokud je tato nahrávka ve frontě ech, předmět zůstává skrytý.
+- Když stará nahrávka vypadne z FIFO fronty, její předměty se vrátí a jejich nepotvrzené body se odečtou.
+- Po dosažení cíle se aktivní body potvrdí a globální skóre pokračuje do dalšího levelu.
 
 ## Struktura projektu
 
@@ -49,7 +52,9 @@ actors/runner/
 └── runner_input.gd
 
 systems/
-└── loop_manager.gd
+├── loop_manager.gd
+├── loop_recording.gd
+└── score_manager.gd
 
 objects/
 ├── pressure_plate.tscn
@@ -77,6 +82,7 @@ Level
 ├── EchoSpawn
 ├── Actors
 ├── Interactables
+├── Collectibles
 └── Goal
 ```
 
@@ -84,7 +90,10 @@ Level
 - `TileMapBackground` a `DecorationsFront` jsou dekorativní vrstvy bez kolizí.
 - `Actors` obsahuje živého runnera, echa a nepřátele.
 - `Interactables` obsahuje tlačítka, dveře a další logické objekty.
+- `Collectibles` obsahuje mince a další bodované předměty. Jejich název uzlu slouží jako stabilní ID v rámci levelu.
 - `RunnerSpawn` a `EchoSpawn` určují počáteční pozice.
+
+HUD zobrazuje potvrzené a aktivní skóre ve formátu `Skóre: 100 (+20)`. Část v závorce patří současnému runnerovi a aktivním nahrávkám ech.
 
 Rozmístění dlaždic je uložené samostatně v každém levelu. Definice dlaždic a jejich kolize jsou sdílené prostřednictvím souborů v adresáři `tilesets/`.
 

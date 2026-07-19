@@ -5,14 +5,15 @@ signal loop_started(loop_number: int)
 signal echo_count_changed(echo_count: int)
 signal time_changed(seconds_left: float)
 signal loop_finished(loop_number: int)
+signal active_collectibles_changed(active_collectibles: Dictionary)
 
 @export var runner_scene: PackedScene
 @export_range(0, 10, 1, "or_greater") var max_echoes: int = 1
 @export_range(1.0, 300.0, 1.0, "or_greater")
 var loop_duration_seconds: float = 10.0
 
-var completed_recordings: Array[Array] = []
-var current_recording: Array[RunnerInput] = []
+var completed_recordings: Array[LoopRecording] = []
+var current_recording := LoopRecording.new()
 var current_tick: int = 0
 var max_ticks: int = 0
 var total_loops_completed: int = 0
@@ -39,7 +40,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	var input_frame := _runner.read_human_input()
-	current_recording.append(input_frame)
+	current_recording.input_frames.append(input_frame)
 	_play_echoes(delta)
 	_runner.apply_input(input_frame, delta)
 
@@ -64,7 +65,7 @@ func start_loop(
 
 	_runner = runner
 	_runner.accepts_human_input = false
-	current_recording = []
+	current_recording = LoopRecording.new()
 	current_tick = 0
 	max_ticks = maxi(
 		roundi(loop_duration_seconds * Engine.physics_ticks_per_second),
@@ -77,6 +78,7 @@ func start_loop(
 	loop_started.emit(get_current_loop_number())
 	echo_count_changed.emit(_echoes.size())
 	time_changed.emit(get_time_left())
+	active_collectibles_changed.emit(get_active_collectibles())
 
 
 func stop_loop() -> void:
@@ -88,10 +90,11 @@ func stop_loop() -> void:
 
 func reset_recordings() -> void:
 	completed_recordings.clear()
-	current_recording.clear()
+	current_recording = LoopRecording.new()
 	current_tick = 0
 	total_loops_completed = 0
 	echo_count_changed.emit(0)
+	active_collectibles_changed.emit({})
 
 
 func get_time_left() -> float:
@@ -103,14 +106,34 @@ func get_current_loop_number() -> int:
 	return total_loops_completed + 1
 
 
+func register_collectible(collectible_id: StringName, points: int) -> bool:
+	if not _is_running or collectible_id == &"" or points <= 0:
+		return false
+	if get_active_collectibles().has(collectible_id):
+		return false
+	if not current_recording.collect_item(collectible_id, points):
+		return false
+
+	active_collectibles_changed.emit(get_active_collectibles())
+	return true
+
+
+func get_active_collectibles() -> Dictionary:
+	var active_collectibles: Dictionary = {}
+	for recording: LoopRecording in completed_recordings:
+		active_collectibles.merge(recording.collected_items, false)
+	active_collectibles.merge(current_recording.collected_items, false)
+	return active_collectibles
+
+
 ## Okamžitě dokončí živé kolo. Zbývající fyzikální snímky vyplní
 ## neutrálním vstupem, takže echo po poslední akci zůstane stát.
 func finish_loop_early() -> void:
 	if not _is_running:
 		return
 
-	while current_recording.size() < max_ticks:
-		current_recording.append(RunnerInput.new())
+	while current_recording.input_frames.size() < max_ticks:
+		current_recording.input_frames.append(RunnerInput.new())
 	current_tick = max_ticks
 	_finish_loop()
 
@@ -122,9 +145,11 @@ func _finish_loop() -> void:
 	_is_running = false
 	set_physics_process(false)
 	total_loops_completed += 1
-	completed_recordings.append(current_recording.duplicate())
+	completed_recordings.append(current_recording)
+	current_recording = LoopRecording.new()
 	while completed_recordings.size() > max_echoes:
 		completed_recordings.pop_front()
+	active_collectibles_changed.emit(get_active_collectibles())
 	time_changed.emit(0.0)
 	loop_finished.emit(total_loops_completed)
 
@@ -157,10 +182,10 @@ func _play_echoes(delta: float) -> void:
 		if not is_instance_valid(echo):
 			continue
 
-		var recording: Array = completed_recordings[echo_index]
+		var recording := completed_recordings[echo_index]
 		var echo_input: RunnerInput = _empty_input
-		if current_tick < recording.size():
-			var recorded_input := recording[current_tick] as RunnerInput
+		if current_tick < recording.input_frames.size():
+			var recorded_input := recording.input_frames[current_tick] as RunnerInput
 			if recorded_input != null:
 				echo_input = recorded_input
 

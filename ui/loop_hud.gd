@@ -6,6 +6,7 @@ extends CanvasLayer
 @onready var status_label: Label = %StatusLabel
 @onready var level_label: Label = %LevelLabel
 @onready var health_label: Label = %HealthLabel
+@onready var score_label: Label = %ScoreLabel
 
 
 func set_time_left(seconds_left: float) -> void:
@@ -22,6 +23,17 @@ func set_echo_count(echo_count: int) -> void:
 
 func set_health(current_health: int) -> void:
 	health_label.text = "Životy: %d" % current_health
+
+
+func set_score(
+	banked_score: int,
+	active_score: int,
+	_total_score: int
+) -> void:
+	if active_score > 0:
+		score_label.text = "Skóre: %d (+%d)" % [banked_score, active_score]
+	else:
+		score_label.text = "Skóre: %d" % banked_score
 
 
 func set_level(level_number: int, level_count: int, level_title: String) -> void:

@@ -36,5 +36,7 @@ position = Vector2(110, 630)
 
 [node name="Interactables" type="Node2D" parent="."]
 
+[node name="Collectibles" type="Node2D" parent="."]
+
 [node name="Goal" parent="." instance=ExtResource("2_goal")]
 position = Vector2(1180, 618)

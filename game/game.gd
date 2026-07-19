@@ -6,6 +6,7 @@ extends Node
 
 @onready var level_container: Node = $LevelContainer
 @onready var loop_manager: LoopManager = $LoopManager
+@onready var score_manager: ScoreManager = $ScoreManager
 @onready var loop_hud: CanvasLayer = $LoopHUD
 
 var _current_level: BaseLevel
@@ -19,6 +20,11 @@ func _ready() -> void:
 	loop_manager.echo_count_changed.connect(loop_hud.set_echo_count)
 	loop_manager.time_changed.connect(loop_hud.set_time_left)
 	loop_manager.loop_finished.connect(_on_loop_finished)
+	loop_manager.active_collectibles_changed.connect(
+		_on_active_collectibles_changed
+	)
+	score_manager.score_changed.connect(loop_hud.set_score)
+	score_manager.reset_campaign()
 	_load_level(_current_level_index, true)
 
 
@@ -42,12 +48,16 @@ func _load_level(level_index: int, clear_recordings: bool) -> void:
 	level_container.add_child(_current_level)
 	loop_hud.clear_status()
 	_current_level.completed.connect(_on_level_completed)
+	_current_level.collectible_collected.connect(_on_collectible_collected)
 
 	loop_manager.stop_loop()
 	if clear_recordings:
 		loop_manager.reset_recordings()
 	loop_manager.max_echoes = _current_level.max_echoes
 	loop_manager.loop_duration_seconds = _current_level.loop_duration_seconds
+	_current_level.apply_collectible_state(
+		loop_manager.get_active_collectibles()
+	)
 
 	var runner := runner_scene.instantiate() as Runner
 	if runner == null:
@@ -75,11 +85,31 @@ func _on_loop_finished(_loop_number: int) -> void:
 		_reset_level.call_deferred()
 
 
+func _on_collectible_collected(
+	collectible_id: StringName,
+	points: int
+) -> void:
+	if loop_manager.register_collectible(collectible_id, points):
+		return
+
+	# Odmítnutý duplicitní sběr vrátí scénu do autoritativního stavu fronty.
+	_current_level.apply_collectible_state(
+		loop_manager.get_active_collectibles()
+	)
+
+
+func _on_active_collectibles_changed(active_collectibles: Dictionary) -> void:
+	score_manager.sync_active_collectibles(active_collectibles)
+	if is_instance_valid(_current_level):
+		_current_level.apply_collectible_state(active_collectibles)
+
+
 func _on_level_completed() -> void:
 	if _is_transitioning:
 		return
 
 	_is_transitioning = true
+	score_manager.commit_level_score()
 	loop_manager.stop_loop()
 	loop_hud.show_level_completed()
 

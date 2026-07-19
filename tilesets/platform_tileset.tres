@@ -1,7 +1,7 @@
-[gd_resource type="TileSet" format=3]
+[gd_resource type="TileSet" format=3 uid="uid://b8hhjyada1jcw"]
 
-[ext_resource type="Texture2D" path="res://spritelib_gpl/spritelib_gpl/platform/blocks1.png" id="1_8kpq0"]
-[ext_resource type="Texture2D" path="res://spritelib_gpl/spritelib_gpl/platform/blocks2.png" id="2_kibyg"]
+[ext_resource type="Texture2D" uid="uid://blbhf5by46yf" path="res://spritelib_gpl/spritelib_gpl/platform/blocks1.png" id="1_8kpq0"]
+[ext_resource type="Texture2D" uid="uid://e0nyidm7ivj1" path="res://spritelib_gpl/spritelib_gpl/platform/blocks2.png" id="2_kibyg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4k8h3"]
 texture = ExtResource("1_8kpq0")

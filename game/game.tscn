@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://game/game.gd" id="1_game"]
 [ext_resource type="Script" path="res://systems/loop_manager.gd" id="3_loop"]
 [ext_resource type="Script" path="res://ui/loop_hud.gd" id="4_hud"]
+[ext_resource type="Script" path="res://systems/score_manager.gd" id="11_score"]
 [ext_resource type="PackedScene" path="res://actors/runner/runner.tscn" id="5_runner"]
 [ext_resource type="PackedScene" path="res://levels/level_01.tscn" id="6_level_01"]
 [ext_resource type="PackedScene" path="res://levels/level_02.tscn" id="7_level_02"]
@@ -22,6 +23,9 @@ script = ExtResource("3_loop")
 runner_scene = ExtResource("5_runner")
 max_echoes = 1
 
+[node name="ScoreManager" type="Node" parent="."]
+script = ExtResource("11_score")
+
 [node name="LoopHUD" type="CanvasLayer" parent="."]
 layer = 10
 script = ExtResource("4_hud")
@@ -33,7 +37,7 @@ anchor_right = 1.0
 offset_left = -240.0
 offset_top = 24.0
 offset_right = -24.0
-offset_bottom = 196.0
+offset_bottom = 222.0
 grow_horizontal = 0
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 8
@@ -86,6 +90,17 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 16
 text = "Životy: 3"
+horizontal_alignment = 2
+
+[node name="ScoreLabel" type="Label" parent="LoopHUD/Layout/Labels"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 18
+text = "Skóre: 0"
 horizontal_alignment = 2
 
 [node name="TimerLabel" type="Label" parent="LoopHUD/Layout/Labels"]

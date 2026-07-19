@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bxibyor1184hk"]
 
-[ext_resource type="Script" uid="uid://cacy2lsy0fgc4" path="res://scripts/mince.gd" id="1_2qrym"]
+[ext_resource type="Script" path="res://scripts/score_collectible.gd" id="1_2qrym"]
 [ext_resource type="Texture2D" uid="uid://cl72b5sh2hejf" path="res://sprites/mince.png" id="1_iikpr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2qrym"]
@@ -45,6 +45,7 @@ animations = [{
 [node name="Mince" type="Area2D" unique_id=38053807]
 collision_mask = 2
 script = ExtResource("1_2qrym")
+points = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=968066432]
 position = Vector2(0.09892273, -0.19784546)
