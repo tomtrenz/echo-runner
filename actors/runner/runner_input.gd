@@ -5,5 +5,3 @@ extends RefCounted
 ## i budoucí přehrávač echa.
 var direction: float = 0.0
 var jump_pressed: bool = false
-var interact_pressed: bool = false
-

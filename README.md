@@ -14,13 +14,14 @@ Hlavní scéna projektu je `game/game.tscn`.
 - pohyb doleva: `A` nebo šipka doleva
 - pohyb doprava: `D` nebo šipka doprava
 - skok: `W`, mezerník nebo šipka nahoru
-- interakce: `E`
+- předčasně dokončit kolo a vytvořit echo: `E`
 
 ## Herní systém
 
 - Každý level určuje délku kola a maximální počet ech.
 - `LoopManager` zaznamenává vstup hráče po fyzikálních snímcích.
 - Po skončení kola se celý level znovu vytvoří ze své `PackedScene`.
+- Klávesou `E` lze kolo dokončit okamžitě; zbývající čas nahrávky se doplní nečinností, takže echo zůstane stát na místě.
 - Dokončené nahrávky zůstávají mezi koly stejného levelu.
 - Při přechodu do dalšího levelu se staré nahrávky smažou.
 - Echo používá stejnou scénu runnera a stejné fyzikální reakce jako živý hráč.

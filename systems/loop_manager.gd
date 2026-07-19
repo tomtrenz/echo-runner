@@ -34,6 +34,9 @@ func _physics_process(delta: float) -> void:
 	if not is_instance_valid(_runner):
 		_finish_loop()
 		return
+	if Input.is_action_just_pressed("finish_loop"):
+		finish_loop_early()
+		return
 
 	var input_frame := _runner.read_human_input()
 	current_recording.append(input_frame)
@@ -98,6 +101,18 @@ func get_time_left() -> float:
 
 func get_current_loop_number() -> int:
 	return total_loops_completed + 1
+
+
+## Okamžitě dokončí živé kolo. Zbývající fyzikální snímky vyplní
+## neutrálním vstupem, takže echo po poslední akci zůstane stát.
+func finish_loop_early() -> void:
+	if not _is_running:
+		return
+
+	while current_recording.size() < max_ticks:
+		current_recording.append(RunnerInput.new())
+	current_tick = max_ticks
+	_finish_loop()
 
 
 func _finish_loop() -> void:

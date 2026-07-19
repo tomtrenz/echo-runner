@@ -47,7 +47,6 @@ func read_human_input() -> RunnerInput:
 	var input_frame := RunnerInput.new()
 	input_frame.direction = Input.get_axis("left", "right")
 	input_frame.jump_pressed = Input.is_action_just_pressed("jump")
-	input_frame.interact_pressed = Input.is_action_just_pressed("interact")
 	return input_frame
 
 
