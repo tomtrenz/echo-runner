@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://x68om5jgjovn" path="res://sprites/mskace.png" id="6_8q3i6"]
 [ext_resource type="PackedScene" uid="uid://bxibyor1184hk" path="res://objects/mince.tscn" id="8_qlag8"]
 [ext_resource type="PackedScene" uid="uid://c7iqjilapgl7v" path="res://objects/potvora.tscn" id="9_5itje"]
+[ext_resource type="Script" uid="uid://cn0pllos20ldc" path="res://scripts/label.gd" id="10_sb6k4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qrmce"]
 texture = ExtResource("1_kdijb")
@@ -731,3 +732,18 @@ position = Vector2(792.91766, 625.7995)
 
 [node name="Potvora" parent="." unique_id=966177907 instance=ExtResource("9_5itje")]
 position = Vector2(539.36206, 522.64685)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=17030886]
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=472128244]
+offset_left = 40.08264
+offset_top = 37.603302
+offset_right = 317.2727
+offset_bottom = 98.206604
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(18.892157, 18.892157, 18.892157, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "00000"
+script = ExtResource("10_sb6k4")
+
+[connection signal="update_score" from="Player" to="CanvasLayer/Label" method="_on_player_update_score"]

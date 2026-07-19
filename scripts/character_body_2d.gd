@@ -62,6 +62,7 @@ func take_damage(amount: int, enemy_position: Vector2) -> void:
 	can_take_damage = false
 	health -= amount
 	print("Životy: ", health)
+	emit_signal("update_score",health)
 	var knockback_direction: float = signf(
 		global_position.x - enemy_position.x
 	)
@@ -79,3 +80,7 @@ func die() -> void:
 
 	print("Hráč zemřel")
 	queue_free()
+	
+	
+#manualne signal
+signal update_score(new_score)
