@@ -1,22 +1,40 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://1amkrq7tk110"]
 
-[ext_resource type="Script" path="res://scripts/pressure_plate.gd" id="1_plate"]
+[ext_resource type="Script" uid="uid://chk18c3m2jkwu" path="res://scripts/pressure_plate.gd" id="1_plate"]
+[ext_resource type="Texture2D" uid="uid://f4ptodcr63iq" path="res://sprites/Pixel-Adventure-1-Free/Traps/Trampoline/Jump (28x28).png" id="2_s4khg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_plate"]
 size = Vector2(56, 12)
 
-[node name="PressurePlate" type="Area2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_plate_inactive"]
+atlas = ExtResource("2_s4khg")
+region = Rect2(196.46062, 13.224045, 26.979004, 16.050797)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_plate_active"]
+atlas = ExtResource("2_s4khg")
+region = Rect2(167.73755, 19.907946, 27.219315, 7.8925896)
+filter_clip = true
+
+[node name="PressurePlate" type="Area2D" unique_id=12683038]
 collision_layer = 0
 collision_mask = 6
 script = ExtResource("1_plate")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=280829721]
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_plate")
 
-[node name="Visual" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(-28, -6, 28, -6, 24, 6, -24, 6)
-color = Color(0.32, 0.36, 0.44, 1)
+[node name="InactiveSprite" type="Sprite2D" parent="." unique_id=1325549858]
+position = Vector2(4.038968e-28, 2)
+scale = Vector2(1.8666668, 0.9166666)
+texture = SubResource("AtlasTexture_plate_inactive")
+
+[node name="ActiveSprite" type="Sprite2D" parent="." unique_id=1558765542]
+visible = false
+position = Vector2(0, 7)
+scale = Vector2(2, 1.0000001)
+texture = SubResource("AtlasTexture_plate_active")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
-

@@ -10,7 +10,7 @@ const RUNNER_COLLISION_MASK := 9
 @export var accepts_human_input: bool = true
 @export var speed: float = 250.0
 @export var gravity: float = 720.0
-@export var jump_velocity: float = -250.0
+@export var jump_velocity: float = -300.0
 
 @export_category("Health")
 @export var max_health: int = 3

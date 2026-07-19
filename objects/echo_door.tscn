@@ -1,19 +1,52 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://q7gn1ac2u6yj"]
 
-[ext_resource type="Script" path="res://scripts/door.gd" id="1_door"]
+[ext_resource type="Script" uid="uid://thdd45yuyu3a" path="res://scripts/door.gd" id="1_door"]
+[ext_resource type="Texture2D" uid="uid://blbhf5by46yf" path="res://spritelib_gpl/spritelib_gpl/platform/blocks1.png" id="2_tiles"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
 size = Vector2(36, 104)
 
-[node name="EchoDoor" type="StaticBody2D"]
-collision_layer = 1
+[sub_resource type="AtlasTexture" id="AtlasTexture_door_closed"]
+atlas = ExtResource("2_tiles")
+region = Rect2(444, 308, 32, 32)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_door_open"]
+atlas = ExtResource("2_tiles")
+region = Rect2(444, 308, 32, 32)
+filter_clip = true
+
+[node name="EchoDoor" type="StaticBody2D" unique_id=1631709344]
 collision_mask = 0
 script = ExtResource("1_door")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1050228335]
 shape = SubResource("RectangleShape2D_door")
 
-[node name="Visual" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(-18, -52, 18, -52, 18, 52, -18, 52)
-color = Color(0.16, 0.48, 0.78, 1)
+[node name="ClosedVisual" type="Node2D" parent="." unique_id=1249099071]
 
+[node name="Top" type="Sprite2D" parent="ClosedVisual" unique_id=1765805744]
+position = Vector2(0, -32)
+texture = SubResource("AtlasTexture_door_closed")
+
+[node name="Middle" type="Sprite2D" parent="ClosedVisual" unique_id=1031651116]
+texture = SubResource("AtlasTexture_door_closed")
+
+[node name="Bottom" type="Sprite2D" parent="ClosedVisual" unique_id=1033670426]
+position = Vector2(0, 32)
+texture = SubResource("AtlasTexture_door_closed")
+
+[node name="OpenVisual" type="Node2D" parent="." unique_id=381528938]
+visible = false
+
+[node name="Top" type="Sprite2D" parent="OpenVisual" unique_id=177500902]
+position = Vector2(0, -36)
+texture = SubResource("AtlasTexture_door_open")
+
+[node name="Middle" type="Sprite2D" parent="OpenVisual" unique_id=338421827]
+position = Vector2(0, -32)
+texture = SubResource("AtlasTexture_door_open")
+
+[node name="Bottom" type="Sprite2D" parent="OpenVisual" unique_id=1304057430]
+position = Vector2(0, -26)
+texture = SubResource("AtlasTexture_door_open")

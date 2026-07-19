@@ -3,10 +3,8 @@ extends Area2D
 
 signal pressed_changed(is_pressed: bool)
 
-@export var inactive_color := Color(0.32, 0.36, 0.44, 1.0)
-@export var active_color := Color(0.2, 0.9, 0.55, 1.0)
-
-@onready var visual: Polygon2D = $Visual
+@onready var inactive_sprite: Sprite2D = $InactiveSprite
+@onready var active_sprite: Sprite2D = $ActiveSprite
 
 var is_pressed: bool = false
 var _runner_ids: Dictionary = {}
@@ -30,7 +28,6 @@ func _set_pressed(new_value: bool) -> void:
 		return
 
 	is_pressed = new_value
-	visual.color = active_color if is_pressed else inactive_color
-	visual.position.y = 3.0 if is_pressed else 0.0
+	inactive_sprite.visible = not is_pressed
+	active_sprite.visible = is_pressed
 	pressed_changed.emit(is_pressed)
-

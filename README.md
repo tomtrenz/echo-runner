@@ -77,6 +77,7 @@ Level
 ├── BackgroundColor
 ├── TileMapBackground
 ├── TileMapWorld
+├── TileMapWorldHalf
 ├── DecorationsFront
 ├── RunnerSpawn
 ├── EchoSpawn
@@ -87,6 +88,7 @@ Level
 ```
 
 - `TileMapWorld` obsahuje pevné prostředí a kolize.
+- `TileMapWorldHalf` používá stejný 32×32 tileset, ale je posunutý o 16 px dolů pro plošiny na polovině mřížky.
 - `TileMapBackground` a `DecorationsFront` jsou dekorativní vrstvy bez kolizí.
 - `Actors` obsahuje živého runnera, echa a nepřátele.
 - `Interactables` obsahuje tlačítka, dveře a další logické objekty.
