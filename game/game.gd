@@ -30,7 +30,7 @@ func _load_level() -> void:
 		push_error("Level musí obsahovat uzel Runner v kořeni scény.")
 		return
 
-	loop_manager.start_loop(runner)
+	loop_manager.start_loop(runner, _current_level)
 
 
 func _on_loop_finished(_loop_number: int) -> void:
@@ -51,4 +51,3 @@ func _reset_level() -> void:
 
 	_load_level()
 	_is_resetting = false
-

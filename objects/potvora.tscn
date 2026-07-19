@@ -73,6 +73,8 @@ animations = [{
 size = Vector2(69.79881, 19.822865)
 
 [node name="Potvora" type="CharacterBody2D" unique_id=966177907]
+collision_layer = 8
+collision_mask = 7
 script = ExtResource("1_vnkor")
 
 [node name="BodyCollision" type="CollisionShape2D" parent="." unique_id=1179828640]
@@ -95,7 +97,7 @@ flip_h = true
 
 [node name="DamageArea" type="Area2D" parent="." unique_id=1191027574]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 
 [node name="DamageCollision" type="CollisionShape2D" parent="DamageArea" unique_id=151113511]
 position = Vector2(-0.03526306, 2.1568851)

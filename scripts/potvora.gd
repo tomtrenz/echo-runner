@@ -50,7 +50,7 @@ func turn_around() -> void:
 
 
 func _on_damage_area_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("player"):
+	if not body.is_in_group("runner"):
 		return
 
 	attack(body)

@@ -71,8 +71,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_runner"]
 size = Vector2(23.831284, 36.241592)
 
-[node name="Runner" type="CharacterBody2D" groups=["player"]]
-collision_layer = 3
+[node name="Runner" type="CharacterBody2D" groups=["player", "runner"]]
+collision_layer = 2
+collision_mask = 9
 script = ExtResource("1_runner")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -82,4 +83,3 @@ autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_runner")
-

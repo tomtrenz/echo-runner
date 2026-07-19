@@ -3,6 +3,9 @@ extends CharacterBody2D
 
 signal health_changed(current_health: int)
 
+const ECHO_COLLISION_LAYER := 4
+const RUNNER_COLLISION_MASK := 9
+
 @export_category("Movement")
 @export var accepts_human_input: bool = true
 @export var speed: float = 250.0
@@ -19,6 +22,7 @@ signal health_changed(current_health: int)
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var health: int
+var is_echo: bool = false
 var invulnerability_time_left: float = 0.0
 var knockback_time_left: float = 0.0
 
@@ -88,6 +92,18 @@ func take_damage(amount: int, enemy_position: Vector2) -> void:
 
 func die() -> void:
 	queue_free()
+
+
+func configure_as_echo(echo_index: int) -> void:
+	is_echo = true
+	accepts_human_input = false
+	collision_layer = ECHO_COLLISION_LAYER
+	collision_mask = RUNNER_COLLISION_MASK
+	remove_from_group("player")
+	add_to_group("echo")
+
+	var echo_hue := fmod(0.52 + float(echo_index) * 0.11, 1.0)
+	modulate = Color.from_hsv(echo_hue, 0.55, 1.0, 0.55)
 
 
 func _apply_gravity(delta: float) -> void:
