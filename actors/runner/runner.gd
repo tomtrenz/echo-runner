@@ -30,12 +30,6 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	_update_timers(delta)
-
-	if knockback_time_left > 0.0:
-		_apply_gravity(delta)
-		_update_animation(0.0, delta)
-		move_and_slide()
-		return
 	if not accepts_human_input:
 		return
 
@@ -56,6 +50,12 @@ func read_human_input() -> RunnerInput:
 ## Provede jeden fyzikální snímek podle dodaného vstupu. Metoda sama
 ## nepoužívá Input, takže ji později může volat HumanController i echo.
 func apply_input(input_frame: RunnerInput, delta: float) -> void:
+	if knockback_time_left > 0.0:
+		_apply_gravity(delta)
+		_update_animation(0.0, delta)
+		move_and_slide()
+		return
+
 	velocity.x = input_frame.direction * speed
 
 	if input_frame.jump_pressed and is_on_floor():

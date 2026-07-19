@@ -1,0 +1,60 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/game.gd" id="1_game"]
+[ext_resource type="PackedScene" path="res://level_01.tscn" id="2_level"]
+[ext_resource type="Script" path="res://systems/loop_manager.gd" id="3_loop"]
+[ext_resource type="Script" path="res://ui/loop_hud.gd" id="4_hud"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_game")
+starting_level = ExtResource("2_level")
+
+[node name="LevelContainer" type="Node" parent="."]
+
+[node name="LoopManager" type="Node" parent="."]
+script = ExtResource("3_loop")
+
+[node name="LoopHUD" type="CanvasLayer" parent="."]
+layer = 10
+script = ExtResource("4_hud")
+
+[node name="Layout" type="MarginContainer" parent="LoopHUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -240.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 100.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="Labels" type="VBoxContainer" parent="LoopHUD/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="LoopLabel" type="Label" parent="LoopHUD/Layout/Labels"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 20
+text = "Kolo 1"
+horizontal_alignment = 2
+
+[node name="TimerLabel" type="Label" parent="LoopHUD/Layout/Labels"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.25, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 28
+text = "10.0 s"
+horizontal_alignment = 2
+
