@@ -15,6 +15,7 @@ starting_level = ExtResource("2_level")
 [node name="LoopManager" type="Node" parent="."]
 script = ExtResource("3_loop")
 runner_scene = ExtResource("5_runner")
+max_echoes = 1
 
 [node name="LoopHUD" type="CanvasLayer" parent="."]
 layer = 10
@@ -70,3 +71,19 @@ theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 28
 text = "10.0 s"
 horizontal_alignment = 2
+
+[node name="StatusLabel" type="Label" parent="LoopHUD"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 120.0
+offset_bottom = 176.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.45, 1, 0.55, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 38
+text = "CÍL SPLNĚN!"
+horizontal_alignment = 1

@@ -2,10 +2,12 @@ class_name LoopManager
 extends Node
 
 signal loop_started(loop_number: int)
+signal echo_count_changed(echo_count: int)
 signal time_changed(seconds_left: float)
 signal loop_finished(loop_number: int)
 
 @export var runner_scene: PackedScene
+@export_range(0, 10, 1, "or_greater") var max_echoes: int = 1
 @export_range(1.0, 300.0, 1.0, "or_greater")
 var loop_duration_seconds: float = 10.0
 
@@ -13,6 +15,7 @@ var completed_recordings: Array[Array] = []
 var current_recording: Array[RunnerInput] = []
 var current_tick: int = 0
 var max_ticks: int = 0
+var total_loops_completed: int = 0
 
 var _runner: Runner
 var _echoes: Array[Runner] = []
@@ -65,6 +68,7 @@ func start_loop(runner: Runner, echo_parent: Node) -> void:
 	set_physics_process(true)
 
 	loop_started.emit(get_current_loop_number())
+	echo_count_changed.emit(_echoes.size())
 	time_changed.emit(get_time_left())
 
 
@@ -79,6 +83,8 @@ func reset_recordings() -> void:
 	completed_recordings.clear()
 	current_recording.clear()
 	current_tick = 0
+	total_loops_completed = 0
+	echo_count_changed.emit(0)
 
 
 func get_time_left() -> float:
@@ -87,7 +93,7 @@ func get_time_left() -> float:
 
 
 func get_current_loop_number() -> int:
-	return completed_recordings.size() + 1
+	return total_loops_completed + 1
 
 
 func _finish_loop() -> void:
@@ -96,9 +102,12 @@ func _finish_loop() -> void:
 
 	_is_running = false
 	set_physics_process(false)
+	total_loops_completed += 1
 	completed_recordings.append(current_recording.duplicate())
+	while completed_recordings.size() > max_echoes:
+		completed_recordings.pop_front()
 	time_changed.emit(0.0)
-	loop_finished.emit(completed_recordings.size())
+	loop_finished.emit(total_loops_completed)
 
 
 func _spawn_echoes(echo_parent: Node, spawn_transform: Transform2D) -> void:

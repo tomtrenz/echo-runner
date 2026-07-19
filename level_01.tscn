@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://bxibyor1184hk" path="res://objects/mince.tscn" id="8_qlag8"]
 [ext_resource type="PackedScene" uid="uid://c7iqjilapgl7v" path="res://objects/potvora.tscn" id="9_5itje"]
 [ext_resource type="Script" uid="uid://cn0pllos20ldc" path="res://scripts/label.gd" id="10_sb6k4"]
+[ext_resource type="Script" path="res://scripts/level_01.gd" id="11_level"]
+[ext_resource type="PackedScene" path="res://objects/pressure_plate.tscn" id="12_plate"]
+[ext_resource type="PackedScene" path="res://objects/echo_door.tscn" id="13_door"]
+[ext_resource type="PackedScene" path="res://objects/level_goal.tscn" id="14_goal"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qrmce"]
 texture = ExtResource("1_kdijb")
@@ -631,6 +635,7 @@ sources/2 = SubResource("TileSetAtlasSource_dvup1")
 sources/3 = SubResource("TileSetAtlasSource_3imfn")
 
 [node name="Level_01" type="Node2D" unique_id=898294135]
+script = ExtResource("11_level")
 
 [node name="TileMapLayer_background" type="TileMapLayer" parent="." unique_id=1733663031]
 scale = Vector2(2.8, 2.3)
@@ -652,7 +657,16 @@ position = Vector2(569.97516, 629.1268)
 position = Vector2(792.91766, 625.7995)
 
 [node name="Potvora" parent="." unique_id=966177907 instance=ExtResource("9_5itje")]
-position = Vector2(539.36206, 522.64685)
+position = Vector2(930, 522.64685)
+
+[node name="PressurePlate" parent="." instance=ExtResource("12_plate")]
+position = Vector2(560, 650)
+
+[node name="EchoDoor" parent="." instance=ExtResource("13_door")]
+position = Vector2(800, 604)
+
+[node name="LevelGoal" parent="." instance=ExtResource("14_goal")]
+position = Vector2(1120, 618)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=17030886]
 
@@ -668,3 +682,5 @@ text = "00000"
 script = ExtResource("10_sb6k4")
 
 [connection signal="health_changed" from="Runner" to="CanvasLayer/Label" method="_on_runner_health_changed"]
+[connection signal="pressed_changed" from="PressurePlate" to="EchoDoor" method="set_open"]
+[connection signal="reached" from="LevelGoal" to="." method="_on_goal_reached"]
