@@ -1,0 +1,28 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://levels/base_level.tscn" id="1_base"]
+[ext_resource type="PackedScene" path="res://objects/pressure_plate.tscn" id="2_plate"]
+[ext_resource type="PackedScene" path="res://objects/echo_door.tscn" id="3_door"]
+
+[node name="Level_03" instance=ExtResource("1_base")]
+level_number = 3
+level_title = "Dvě minulosti"
+background_color = Color(0.05, 0.16, 0.18, 1)
+max_echoes = 2
+loop_duration_seconds = 12.0
+
+[node name="PlateA" parent="Interactables" index="0" instance=ExtResource("2_plate")]
+position = Vector2(270, 650)
+
+[node name="DoorA" parent="Interactables" index="1" instance=ExtResource("3_door")]
+position = Vector2(520, 604)
+
+[node name="PlateB" parent="Interactables" index="2" instance=ExtResource("2_plate")]
+position = Vector2(670, 650)
+
+[node name="DoorB" parent="Interactables" index="3" instance=ExtResource("3_door")]
+position = Vector2(900, 604)
+
+[connection signal="pressed_changed" from="Interactables/PlateA" to="Interactables/DoorA" method="set_open"]
+[connection signal="pressed_changed" from="Interactables/PlateB" to="Interactables/DoorB" method="set_open"]
+

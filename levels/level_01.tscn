@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://levels/base_level.tscn" id="1_base"]
+[ext_resource type="PackedScene" path="res://objects/pressure_plate.tscn" id="2_plate"]
+[ext_resource type="PackedScene" path="res://objects/echo_door.tscn" id="3_door"]
+
+[node name="Level_01" instance=ExtResource("1_base")]
+level_number = 1
+level_title = "První ozvěna"
+background_color = Color(0.07, 0.12, 0.18, 1)
+max_echoes = 1
+loop_duration_seconds = 10.0
+
+[node name="PressurePlate" parent="Interactables" index="0" instance=ExtResource("2_plate")]
+position = Vector2(350, 650)
+
+[node name="EchoDoor" parent="Interactables" index="1" instance=ExtResource("3_door")]
+position = Vector2(680, 604)
+
+[connection signal="pressed_changed" from="Interactables/PressurePlate" to="Interactables/EchoDoor" method="set_open"]
+

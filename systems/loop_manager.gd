@@ -47,7 +47,11 @@ func _physics_process(delta: float) -> void:
 		_finish_loop()
 
 
-func start_loop(runner: Runner, echo_parent: Node) -> void:
+func start_loop(
+	runner: Runner,
+	echo_parent: Node,
+	echo_spawn_transform: Transform2D
+) -> void:
 	if not is_instance_valid(runner):
 		push_error("LoopManager nemůže spustit kolo bez platného Runnera.")
 		return
@@ -63,7 +67,7 @@ func start_loop(runner: Runner, echo_parent: Node) -> void:
 		roundi(loop_duration_seconds * Engine.physics_ticks_per_second),
 		1
 	)
-	_spawn_echoes(echo_parent, _runner.global_transform)
+	_spawn_echoes(echo_parent, echo_spawn_transform)
 	_is_running = true
 	set_physics_process(true)
 

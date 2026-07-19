@@ -1,14 +1,19 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_game"]
-[ext_resource type="PackedScene" path="res://level_01.tscn" id="2_level"]
 [ext_resource type="Script" path="res://systems/loop_manager.gd" id="3_loop"]
 [ext_resource type="Script" path="res://ui/loop_hud.gd" id="4_hud"]
 [ext_resource type="PackedScene" path="res://actors/runner/runner.tscn" id="5_runner"]
+[ext_resource type="PackedScene" path="res://levels/level_01.tscn" id="6_level_01"]
+[ext_resource type="PackedScene" path="res://levels/level_02.tscn" id="7_level_02"]
+[ext_resource type="PackedScene" path="res://levels/level_03.tscn" id="8_level_03"]
+[ext_resource type="PackedScene" path="res://levels/level_04.tscn" id="9_level_04"]
+[ext_resource type="PackedScene" path="res://levels/level_05.tscn" id="10_level_05"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_game")
-starting_level = ExtResource("2_level")
+runner_scene = ExtResource("5_runner")
+levels = Array[PackedScene]([ExtResource("6_level_01"), ExtResource("7_level_02"), ExtResource("8_level_03"), ExtResource("9_level_04"), ExtResource("10_level_05")])
 
 [node name="LevelContainer" type="Node" parent="."]
 
@@ -28,7 +33,7 @@ anchor_right = 1.0
 offset_left = -240.0
 offset_top = 24.0
 offset_right = -24.0
-offset_bottom = 100.0
+offset_bottom = 170.0
 grow_horizontal = 0
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 8
@@ -38,6 +43,17 @@ theme_override_constants/margin_bottom = 8
 [node name="Labels" type="VBoxContainer" parent="LoopHUD/Layout"]
 layout_mode = 2
 theme_override_constants/separation = 2
+
+[node name="LevelLabel" type="Label" parent="LoopHUD/Layout/Labels"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+text = "Level 1/5"
+horizontal_alignment = 2
 
 [node name="LoopLabel" type="Label" parent="LoopHUD/Layout/Labels"]
 unique_name_in_owner = true
@@ -59,6 +75,17 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 16
 text = "Echa: 0"
+horizontal_alignment = 2
+
+[node name="HealthLabel" type="Label" parent="LoopHUD/Layout/Labels"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.45, 0.45, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+text = "Životy: 3"
 horizontal_alignment = 2
 
 [node name="TimerLabel" type="Label" parent="LoopHUD/Layout/Labels"]
