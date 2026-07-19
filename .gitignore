@@ -23,6 +23,11 @@ export_credentials.cfg
 data_*/
 mono_crash.*.json
 
+# Lokální Android build výstupy
+#build/android/*.apk
+build/android/*.idsig
+build/android/*.log
+
 
 ############################################
 ########## MacOS Gitignore #################

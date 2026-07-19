@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c7mj8lh1rk3bf"]
+[gd_scene load_steps=14 format=3 uid="uid://c7mj8lh1rk3bf"]
 
 [ext_resource type="Script" uid="uid://dpfq4e7xc4img" path="res://game/game.gd" id="1_game"]
 [ext_resource type="Script" uid="uid://7f7epb8qnshl" path="res://systems/loop_manager.gd" id="3_loop"]
@@ -10,13 +10,30 @@
 [ext_resource type="PackedScene" path="res://levels/level_04.tscn" id="9_level_04"]
 [ext_resource type="PackedScene" path="res://levels/level_05.tscn" id="10_level_05"]
 [ext_resource type="Script" uid="uid://bhhuk5cbbbgpl" path="res://systems/score_manager.gd" id="11_score"]
+[ext_resource type="PackedScene" path="res://ui/mobile/mobile_controls.tscn" id="12_mobile"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud_background"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.015, 0.025, 0.04, 0.76)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.55, 0.68, 0.35)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="Game" type="Node" unique_id=1273878086]
 script = ExtResource("1_game")
 runner_scene = ExtResource("5_runner")
 levels = Array[PackedScene]([ExtResource("6_level_01"), ExtResource("7_level_02"), ExtResource("8_level_03"), ExtResource("9_level_04"), ExtResource("10_level_05")])
 
-[node name="LevelContainer" type="Node" parent="." unique_id=1132523289]
+[node name="LevelContainer" type="Node2D" parent="." unique_id=1132523289]
 
 [node name="LoopManager" type="Node" parent="." unique_id=413105021]
 script = ExtResource("3_loop")
@@ -25,11 +42,13 @@ runner_scene = ExtResource("5_runner")
 [node name="ScoreManager" type="Node" parent="." unique_id=1443315626]
 script = ExtResource("11_score")
 
+[node name="MobileControls" parent="." instance=ExtResource("12_mobile")]
+
 [node name="LoopHUD" type="CanvasLayer" parent="." unique_id=767103666]
 layer = 10
 script = ExtResource("4_hud")
 
-[node name="Layout" type="MarginContainer" parent="LoopHUD" unique_id=529694309]
+[node name="Layout" type="PanelContainer" parent="LoopHUD" unique_id=529694309]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -38,10 +57,7 @@ offset_top = 28.0
 offset_right = -91.0
 offset_bottom = 238.0
 grow_horizontal = 0
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud_background")
 
 [node name="Labels" type="VBoxContainer" parent="LoopHUD/Layout" unique_id=770709853]
 layout_mode = 2
@@ -114,6 +130,7 @@ text = "10.0 s"
 horizontal_alignment = 2
 
 [node name="FinishLoopHint" type="Label" parent="LoopHUD/Layout/Labels" unique_id=762264197]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.75, 0.82, 0.9, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)

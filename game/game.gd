@@ -1,13 +1,18 @@
 extends Node
 
+const BASE_LEVEL_SIZE := Vector2(1280.0, 720.0)
+const MOBILE_BOTTOM_BAR_HEIGHT := 144.0
+const MOBILE_RIGHT_PANEL_WIDTH := 256.0
+
 @export var runner_scene: PackedScene
 @export var levels: Array[PackedScene] = []
 @export var level_transition_delay: float = 0.8
 
-@onready var level_container: Node = $LevelContainer
+@onready var level_container: Node2D = $LevelContainer
 @onready var loop_manager: LoopManager = $LoopManager
 @onready var score_manager: ScoreManager = $ScoreManager
 @onready var loop_hud: CanvasLayer = $LoopHUD
+@onready var mobile_controls: MobileControls = $MobileControls
 
 var _current_level: BaseLevel
 var _current_level_index: int = 0
@@ -16,6 +21,9 @@ var _is_transitioning: bool = false
 
 
 func _ready() -> void:
+	loop_hud.set_mobile_layout_enabled(_is_mobile_layout())
+	get_viewport().size_changed.connect(_update_level_margins)
+	_update_level_margins()
 	loop_manager.loop_started.connect(loop_hud.set_loop_number)
 	loop_manager.echo_count_changed.connect(loop_hud.set_echo_count)
 	loop_manager.time_changed.connect(loop_hud.set_time_left)
@@ -26,6 +34,45 @@ func _ready() -> void:
 	score_manager.score_changed.connect(loop_hud.set_score)
 	score_manager.reset_campaign()
 	_load_level(_current_level_index, true)
+
+
+func _update_level_margins() -> void:
+	var viewport_size := get_viewport().get_visible_rect().size
+	if _is_mobile_layout():
+		var safe_insets := mobile_controls.get_safe_insets(viewport_size)
+		var available_size := Vector2(
+			viewport_size.x
+				- safe_insets.x
+				- safe_insets.z
+				- MOBILE_RIGHT_PANEL_WIDTH,
+			viewport_size.y
+				- safe_insets.y
+				- safe_insets.w
+				- MOBILE_BOTTOM_BAR_HEIGHT
+		)
+		var mobile_scale := maxf(
+			minf(
+				available_size.x / BASE_LEVEL_SIZE.x,
+				available_size.y / BASE_LEVEL_SIZE.y
+			),
+			0.1
+		)
+		level_container.scale = Vector2.ONE * mobile_scale
+		level_container.position = Vector2(safe_insets.x, safe_insets.y)
+		return
+
+	level_container.scale = Vector2.ONE
+	level_container.position = Vector2(
+		maxf((viewport_size.x - BASE_LEVEL_SIZE.x) * 0.5, 0.0),
+		maxf((viewport_size.y - BASE_LEVEL_SIZE.y) * 0.5, 0.0)
+	)
+
+
+func _is_mobile_layout() -> bool:
+	return (
+		DisplayServer.is_touchscreen_available()
+		or mobile_controls.show_on_desktop
+	)
 
 
 func _load_level(level_index: int, clear_recordings: bool) -> void:
